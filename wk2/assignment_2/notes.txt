@@ -1,0 +1,8 @@
+Video – repeat
+14:00 – 21:13 / 32:05
+Node HTTP server
+
+Video – 25:15
+dynamic routing
+
+• browser rendering issue (sometimes) [browser console message] – "The stylesheet http://localhost:8080/css/styles.css was not loaded because its MIME type, “text/javascript”, is not “text/css”."
