@@ -23,29 +23,35 @@ http.createServer(function (req, res) {
     fileN = fileName.name == "" ? "index" : fileName.name;
     // if fileName.ext = """ then change to = .html"
     ext = fileName.ext == "" ? ".html" : fileName.ext;
-    // if fileName.dir = / then remove / and add / 
+    // if fileName.dir = / then remove / and add / to the end
     dir = fileName.dir == "/" ? "" : fileName.dir + "/";
     // if fileName.name = "" then change to index.html
     page = fileName.name == "" ? "index.html" : fileName.name;
 
-    // create f variable by concatenating listed, search for and replace / with ""
+    // create f variable by concatenating listed variables  , search for and replace / with ""
     f = (dir + fileN + ext).replace("/", "");
     console.log("f – " + f + "\n");
+    console.log("dir – " + dir);
+    console.log("fileN – " + fileN);
+    console.log("ext – " + ext);
 
     // media type data object
     let mimeTypes = {
         '.html': 'text/html',
-        '.css': 'text/css',
         '.js': 'text/javascript',
-        '.text': 'css/css',
-        '.text': 'javascript/js',
+        '.css': 'text/css',
+        '.json': 'application/json',
         '.png': 'image/png',
         '.jpg': 'image/jpg',
-        '.gif': 'image/jpg',
-        '.svg': 'image/jpg',
-        '.tff': 'image/tff',
-        '.woff': 'image/woff',
-        '.woff2': 'image/woff2'
+        '.gif': 'image/gif',
+        '.svg': 'image/svg+xml',
+        '.wav': 'audio/wav',
+        '.mp4': 'video/mp4',
+        '.woff': 'application/font-woff',
+        '.ttf': 'application/font-ttf',
+        '.eot': 'application/vnd.ms-fontobject',
+        '.otf': 'application/font-otf',
+        '.wasm': 'application/wasm'
     };
 
     if (f) {
@@ -54,9 +60,10 @@ http.createServer(function (req, res) {
             if (page) {
                 // media type file use extension
                 if (mimeTypes.hasOwnProperty(ext)) {
-
+                    // adds an http header with correct file type to http response
                     res.writeHead(200, { 'Content-Type': mimeTypes[ext] });
-                    res.write("<script> var name = fileN; </script>");
+                    // writes a response to client (?)
+                    res.write("<script>var page='" + fileN + "'; </script>");
                     // response as webpage
                     res.end(data, 'utf-8')
 
