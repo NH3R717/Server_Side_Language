@@ -8,16 +8,14 @@ const path = require("path")
 const url = require("url")
 
 // method creates an HTTP Server object
-// parameters – req accepts incoming messages / res - serves response to that message
+// parameters – request accepts incoming messages / response - serves response to that message
 http.createServer(function (req, res) {
 
-    // takes url string from incoming message provided by the HTTP method and parses it 
+    // takes url string from incoming message provided by the HTTP method and parses it (delimited by /)
     let parsed = url.parse(req.url);
     console.log("Parsed – 1" + parsed + "\n");
     let fileName = path.parse(parsed.pathname)
     console.log("FileName – 2" + fileName + "\n");
-
-    // shorthand conditional statements
 
     //if fileName.name = "" then change to = index
     fileN = fileName.name == "" ? "index" : fileName.name;
@@ -28,7 +26,7 @@ http.createServer(function (req, res) {
     // if fileName.name = "" then change to index.html
     page = fileName.name == "" ? "index.html" : fileName.name;
 
-    // create f variable by concatenating listed variables  , search for and replace / with ""
+    // create f variable by concatenating listed variables, search for and replace / with ""
     f = (dir + fileN + ext).replace("/", "");
     console.log("f – " + f + "\n");
     console.log("dir – " + dir);
@@ -56,15 +54,17 @@ http.createServer(function (req, res) {
 
     if (f) {
         fs.readFile(f, function (err, data) {
-            // if page 
+            // if page...
             if (page) {
                 // media type file use extension
                 if (mimeTypes.hasOwnProperty(ext)) {
                     // adds an http header with correct file type to http response
                     res.writeHead(200, { 'Content-Type': mimeTypes[ext] });
-                    // writes a response to client (?)
-                    res.write("<script>var page='" + fileN + "'; </script>");
-                    // response as webpage
+
+                    // passes javascript variable from server to client client (in header)
+                    res.write("<script>var page='" + f + "'; </script>");
+
+                    // response as webpage to client
                     res.end(data, 'utf-8')
 
                 }
