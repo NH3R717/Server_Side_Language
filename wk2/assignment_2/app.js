@@ -62,7 +62,7 @@ http.createServer(function (req, res) {
                     res.writeHead(200, { 'Content-Type': mimeTypes[ext] });
 
                     // passes javascript variable from server to client client (in header)
-                    res.write("<script>var page='" + f + "'; </script>");
+                    res.write("<script>\"var page\"='" + f + "'; </script>");
 
                     // response as webpage to client
                     res.end(data, 'utf-8')
