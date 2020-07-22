@@ -1,0 +1,222 @@
+<div style="
+background-color: #1abc9c;
+padding: 0 0 2em 4em;">
+    <%if(typeof(errors) != "undefined"){%>
+    <% for(e in errors){%>
+    <br>
+    <span style="color: #f50000"><%= errors[e]%></span></h1>
+    <%}%>
+        <%}%>
+</div>
+<div style="
+background-color: #1abc9c;
+padding: 0 0 2em 4em;">
+    <%if(typeof(success) != "undefined"){%>
+    <% for(s in success){%>
+    <br><span style="color: #007e65;"><%= success[s]%></span>
+    <%}%>
+        <%}%>
+</div>
+
+<section class="page-section" id="contact">
+    <div class="container">
+        <!-- Contact Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Register</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Contact Section Form-->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <form action="/register" method="post" id="contactForm" name="sentMessage" novalidate="novalidate">
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>First Name</label>
+                            <input class="form-control" name="firstName" id="firstName" type="text" placeholder="First Name" required="required" data-validation-required-message="Please enter your first name." />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Last Name</label>
+                            <input class="form-control" name="lastName" id="lastName" type="text" placeholder="Last Name" required="required" data-validation-required-message="Please enter your last name." />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Address</label>
+                            <input class="form-control" name="address" id="address" type="text" placeholder="Address" required="required" data-validation-required-message="Please enter your street address." />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>City</label>
+                            <input class="form-control" name="city" id="city" type="text" placeholder="City" required="required" data-validation-required-message="Please enter your city." />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <h3></h3>
+                            <h5>State</h5>
+
+                            <select name="state">
+                                <!-- <optgroup label="Other"></optgroup> -->
+                                <option value="">—</option>
+                                <!-- <optgroup label=""></optgroup> -->
+                                <optgroup label="States"></optgroup>
+                                <option value="AL">Alabama (AL)</option>
+                                <option value="AK">Alaska (AK)</option>
+                                <option value="AZ">Arizona (AZ)</option>
+                                <option value="AR">Arkansas (AR)</option>
+                                <option value="CA">California (CA)</option>
+                                <option value="CO">Colorado (CO)</option>
+                                <option value="CT">Connecticut (CT)</option>
+                                <option value="DE">Delaware (DE)</option>
+                                <option value="DC">District Of Columbia (DC)</option>
+                                <option value="FL">Florida (FL)</option>
+                                <option value="GA">Georgia (GA)</option>
+                                <option value="HI">Hawaii (HI)</option>
+                                <option value="ID">Idaho (ID)</option>
+                                <option value="IL">Illinois (IL)</option>
+                                <option value="IN">Indiana (IN)</option>
+                                <option value="IA">Iowa (IA)</option>
+                                <option value="KS">Kansas (KS)</option>
+                                <option value="KY">Kentucky (KY)</option>
+                                <option value="LA">Louisiana (LA)</option>
+                                <option value="ME">Maine (ME)</option>
+                                <option value="MD">Maryland (MD)</option>
+                                <option value="MA">Massachusetts (MA)</option>
+                                <option value="MI">Michigan (MI)</option>
+                                <option value="MN">Minnesota (MN)</option>
+                                <option value="MS">Mississippi (MS)</option>
+                                <option value="MO">Missouri (MO)</option>
+                                <option value="MT">Montana (MT)</option>
+                                <option value="NE">Nebraska (NE)</option>
+                                <option value="NV">Nevada (NV)</option>
+                                <option value="NH">New Hampshire (NH)</option>
+                                <option value="NJ">New Jersey (NJ)</option>
+                                <option value="NM">New Mexico (NM)</option>
+                                <option value="NY">New York (NY)</option>
+                                <option value="NC">North Carolina (NC)</option>
+                                <option value="ND">North Dakota (ND)</option>
+                                <option value="OH">Ohio (OH)</option>
+                                <option value="OK">Oklahoma (OK)</option>
+                                <option value="OR">Oregon (OR)</option>
+                                <option value="PA">Pennsylvania (PA)</option>
+                                <option value="RI">Rhode Island (RI)</option>
+                                <option value="SC">South Carolina (SC)</option>
+                                <option value="SD">South Dakota (SD)</option>
+                                <option value="TN">Tennessee (TN)</option>
+                                <option value="TX">Texas (TX)</option>
+                                <option value="UT">Utah (UT)</option>
+                                <option value="VT">Vermont (VT)</option>
+                                <option value="VA">Virginia (VA)</option>
+                                <option value="WA">Washington (WA)</option>
+                                <option value="WV">West Virginia (WV)</option>
+                                <option value="WI">Wisconsin (WI)</option>
+                                <option value="WY">Wyoming (WY)</option>
+                                <optgroup label=""></optgroup>
+                                <optgroup label="Outlying Territories"></optgroup>
+                                <option value="AS">American Samoa (AS)</option>
+                                <option value="GU">Guam (GU)</option>
+                                <option value="MP">Northern Mariana Islands (MP)</option>
+                                <option value="PR">Puerto Rico (PR)</option>
+                                <option value="UM">United States Minor Outlying Islands (UM)</option>
+                                <option value="VI">Virgin Islands (VI)</option>
+                                <optgroup label=""></optgroup>
+                                <optgroup label="Armed Forces"></optgroup>
+                                <option value="AA">Armed Forces Americas (AA)</option>
+                                <option value="AP">Armed Forces Pacific (AP)</option>
+                                <option value="AE">Armed Forces Others (AE)</option>
+                            </select>
+
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Zipcode</label>
+                            <input class="form-control" name="zipcode" id="zipcode" type="text" placeholder="Zipcode" required="required" data-validation-required-message="Please enter your zipcode." />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group" name=age>
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <h3></h3>
+                            <h5>Age</h5>
+
+                            <select name="age">
+                                <!-- <optgroup label="States"></optgroup> -->
+                                <!-- <optgroup label="Other"></optgroup> -->
+                                <option value="">—</option>
+                                <!-- <optgroup label=""></optgroup> -->
+                                <option value="0-13">0-13</option>
+                                <option value="14-20">14-20</option>
+                                <option value="21-30">21-30</option>
+                                <option value="31-40">31-40</option>
+                                <option value="41-55">41-55</option>
+                                <option value="56-65">56-65</option>
+                                <option value="66+">66+</option>
+
+                            </select>
+
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div style="border-bottom: 1px solid #e9ecef;" class="form-group controls mb-0 pb-2">
+
+                            <h3></h3>
+                            <h5>Gender</h5>
+                            <input type="radio" id="male" name="gender" value="m">
+                            <label for="male">Male</label><br>
+                            <input type="radio" id="female" name="gender" value="f">
+                            <label for="female">Female</label>
+
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div style="border-bottom: 1px solid #e9ecef;" class="form-group controls mb-0 pb-2">
+
+                            <h3></h3>
+                            <h5>Consent</h5>
+                            <input type="checkbox" id=consent name="consent" value="1">
+                            <label for="consent">I agree</label><br>
+
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Bio</label>
+                            <textarea class="form-control" name="bio" type="text" id="bio" rows="5" placeholder="Bio" required="required" data-validation-required-message="Please enter a message."></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="container">
+
+                        <br />
+                        <div id="registered"></div>
+                        <div class="form-group"><button class="btn btn-primary btn-xl" id="registerUser" type="submit">Send</button></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
