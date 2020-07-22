@@ -30,6 +30,6 @@ async function executeAsyncTask() { // (8) missing async keyword
   console.log(valueB + " " + valueA)
 } // (9) added closing bracket
 
-executeAsyncTask() // (10) call function
+executeAsyncTask(); // (10) call function
 
 // Output Here is my IP address 149.24.160.1, 149.24.160.1
