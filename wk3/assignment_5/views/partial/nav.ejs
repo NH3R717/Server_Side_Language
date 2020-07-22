@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+    <div class="container">
+        <!-- <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>   -->
+        <div class="js-scroll-trigger" style="z-index: 12;
+        display: block;
+        text-align: right;
+        background-color: #0780e9;
+        margin-right: 35px;
+        padding-right: 5px;
+        color: gray;
+        position: relative;
+        float: right;
+        width: 210px;
+        margin-top: 10px;
+        padding-top: 5px;
+        right: 0px;
+        border-radius: 10px;
+        padding: 11px;
+        font-size: 12px;">
+
+            <form action="/login" method="POST">
+                <input type="text" name="email" placeholder="email">
+                <input type="text" name="password" placeholder="password">
+                <input value="Log In" type="submit">
+            </form>
+
+        </div>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto" style="float: right; margin-top: 0rem;">
+                <li class="nav-item mx-0 mx-lg-1">
+
+                    <% if (pagename=="Home") {%>
+                    <a class="nav-item mx-0 mx-lg-1" style="color:#6dff16" href="/">Home</a>
+                    <%}else{%>
+                    <a class="nav-item mx-0 mx-lg-1" href="/">Home</a>
+                    <%}%>
+                    
+                    <% if (pagename=="Register") {%>
+                    <a class="nav-item mx-0 mx-lg-1" style="color:#6dff16" href="/">Register</a>
+                    <%}else{%>
+                    <a class="nav-item mx-0 mx-lg-1" href="/register">Register</a>
+                    <%}%>
+
+                    <!-- logon conditional -->
+                    
+                    <%if(typeof(sess)!="undefined" && sess.logged==true){%>
+                    <a class="nav-link" href="/profile">Profile</a>
+                    <a class="nav-link" href="/logout">Logout</a>
+                    <% } %>
+
+            </ul>
+        </div>
+        <%if(typeof(sess)!="undefined" && sess.logged==true){%>
+        <a class="nav-link" href="/profile">Profile</a>
+        <a class="nav-link" href="/logout">Logout</a>
+        <% } %>
+    </div>
+</nav>
+
+<!-- login messages display -->
+
+<section style="
+background-color: #1abc9c;
+padding-top: 12em;">
+    <div style="padding: 0 0 0em 4em;">
+        <%if(typeof(errors) != "undefined"){%>
+        <% for(e in errors){%>
+        <br>
+        <span style="color: #f50000"><%= errors[e]%></span></h1>
+        <%}%>
+        <%}%>
+    </div>
+    <div style="padding: 0 0 0em 4em;">
+        <%if(typeof(success) != "undefined"){%>
+        <% for(s in success){%>
+        <br><span style="color: #007e65;"><%= success[s]%></span>
+        <%}%>
+        <%}%>
+    </div>
+</section>
