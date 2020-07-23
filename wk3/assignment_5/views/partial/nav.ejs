@@ -42,22 +42,23 @@
                     <a class="nav-item mx-0 mx-lg-1" style="color:#6dff16" href="/">Register</a>
                     <%}else{%>
                     <a class="nav-item mx-0 mx-lg-1" href="/register">Register</a>
+
                     <%}%>
 
                     <!-- logon conditional -->
-                    
-            </ul>
-        </div>
-
-        <%if(typeof(sess)!="undefined" && sess.logged=="true"){%>
+                    <%if(typeof(sess)!="undefined" && sess.logged=="true"){%>
                     <a if="inView" class="nav-item mx-0 mx-lg-1" href="/profile">Profile</a>
                     <a class="nav-item mx-0 mx-lg-1" href="/logout">Logout</a>
                     <% } %>
-
+            </ul>
         </div>
+
+
+
+    </div>
 </nav>
 <!-- below scrip does not function -->
-<script type="text/Javascript">document.querySelector('#inView').style.color = "#6dff16";</script>
+<!-- <script type="text/Javascript">document.querySelector('#inView').style.color = "#6dff16";</script> -->
 <!-- login messages display -->
 
 <section style="

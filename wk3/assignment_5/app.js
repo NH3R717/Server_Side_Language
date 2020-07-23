@@ -3,88 +3,82 @@
 // imported libraries
 
 // file system module – allows you to work with the file system on your computer.
-var fs = require("fs");
+const fs = require("fs")
 // allows Node.js to transfer data over http
-var http = require("http");
+const http = require("http")
 // http module – path module – allows working with directories and file paths
-var path = require("path")
+const path = require("path")
 // URL module – splits up a web address into readable parts.
-var url = require("url")
+const url = require("url")
 // allows sessions to be utilized on the server
-var session = require("express-session");
+const session = require("express-session")
 
 // express = server-side framework
-var express = require("express");
-// request "simplified http client"
-var request = require("request");
+const express = require("express")
+// request "simplified http client" – deprecated as of Feb 2020
+const request = require("request")
 // without body-parser post request body = undefined 
-var bodyParser = require("body-parser")
-var app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+const bodyParser = require("body-parser")
+const app = express()
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // 
-let ejs = require("ejs");
-const { response } = require("express");
-const router = express.Router();
+let ejs = require("ejs")
+const { response } = require("express")
+const router = express.Router()
 
 // 
-app.set("view engine", "ejs");
-app.engine("ejs", require("ejs").__express);
+app.set("view engine", "ejs")
+app.engine("ejs", require("ejs").__express)
 
 // assignment 5 code addition – start
 
 // tells app to use sessions via "express-session"
-app.use(session({ secret: "secret", saveUninitialized: true, resave: true }));
+app.use(session({ secret: "secret", saveUninitialized: true, resave: true }))
 
 // global variable to store session data
-var sess;
+let sess
+
+// routs
 
 router.get("/", function (req, res) {
-    //blank sessions var initialization
-    sess = req.session;
+    //blank sess var initialization on page load
+    sess = req.session
     res.render('index', { pagename: "Home", sess: sess })
-});
 
-router.get("/profile", function (req, res) {
-    sess = req.session;
-    console.log("redirected to profile")
-    if (typeof (sess) == "undefined" || sess.logged != "true") {
-        var errors = ["Not an authenticated user"];
-        console.log("if /profile sess.logged (N)")
-        console.log(sess.logged)
-        res.render('home', { pagename: "Home", errors: errors })
-    } else {
-        console.log("else /profile sess.logged (Y)")
-        console.log(sess.logged)
-        res.render('profile', { pagename: "Profile", sess: sess })
-    }
-});
+})
+
+router.get("/register", function (request, response) {
+
+    response.render("register", { pagename: "Register", sess: sess })
+
+})
 
 router.get("/logout", function (req, res) {
 
-    sess = req.session;
+    sess = req.session
     sess.destroy(function (err) {
-        res.redirect("/");
+        res.redirect("/")
     })
 
-});
+})
 
 router.post("/login", function (req, res) {
     console.log("login session")
     console.log(req.email)
-    sess = req.session;
+    sess = req.session
     console.log("login email")
     console.log(sess.email)
-    sess.email = req.body.email;
+    sess.email = req.body.email
     console.log("login password")
     console.log(sess.password)
-    sess.password = req.body.password;
+    sess.password = req.body.password
     console.log("login login")
     console.log(sess.logged)
     sess.logged = ""
 
-    var errors = [];
+    let errors = []
     if (req.body.email == "") {
         errors.push("blank email")
     }
@@ -113,15 +107,15 @@ router.post("/login", function (req, res) {
         res.render("index", { pagename: "Home", errors: errors })
     }
     if (req.body.email == "Mike@aol.com" && req.body.password == "abc123") {
-        sess.logged = "true";
+        sess.logged = "true"
         console.log(sess.logged)
         console.log("elseif" + req.session)
         console.log("elseif" + sess.email)
         console.log("elseif" + req.body.email)
         console.log("elseif" + sess.password)
         console.log("elseif" + req.body.password)
-        console.log("EVERYTHING VALIDATED RENDERS PROFILE SENDS TO /profile")
-        return res.redirect(303, "/profile");
+        console.log("EVERYTHING VALIDATED – SENDS TO /profile")
+        return res.redirect(303, "/profile")
 
     } else {
         console.log("else" + sess)
@@ -132,34 +126,49 @@ router.post("/login", function (req, res) {
         console.log("else" + sess.password)
         console.log("else" + req.body.password)
         res.render("index", { pagename: "Home", errors: errors })
-        console.log("EVERYTHING VALIDATED GOES TO ELSE")
+        console.log("EVERYTHING VALIDATED – GOES TO ELSE")
     }
     console.log(errors)
     console.log("login session")
     console.log(req.email)
-    // sess = req.session;
+    // sess = req.session
     console.log("login email")
     console.log(sess.email)
-    // sess.email = req.body.email;
+    // sess.email = req.body.email
     console.log("login password")
     console.log(sess.password)
-    // sess.password = req.body.password;
+    // sess.password = req.body.password
     console.log("login login")
     console.log(sess.logged)
 
 })
 
 // 
-router.get("/", function (request, response) {
+// router.get("/", function (request, response) {
 
-    response.render("index", { pagename: "Home" }); //views/index.ejs
+//     response.render("index", { pagename: "Home" }) //views/index.ejs
 
+// })
+
+//
+router.get("/profile", function (req, res) {
+    console.log("redirected to profile")
+    if (typeof (sess) == "undefined" || sess.logged != "true") {
+        let errors = ["Not an authenticated user"]
+        console.log("/profile IF (N)")
+        console.log(sess.logged)
+        res.render('home', { pagename: "Home", errors: errors })
+    } else {
+        console.log("/profile ELSE (N) (Y)")
+        console.log(sess.logged)
+        res.render('profile', { pagename: "Profile", sess: sess })
+    }
 })
 
-// 
+// fully functional only with 2 "router.get("/register",..." statements
 router.get("/register", function (request, response) {
 
-    response.render("register", { pagename: "Register" }); //views/register.ejs
+    response.render("register", { pagename: "Register", sess: sess })
 
 })
 
@@ -168,8 +177,8 @@ router.post("/register", function (req, res) {
 
     console.log(req.body.firstName, req.body.lastName, req.body.address, req.body.city, req.body.state, req.body.zipcode, req.body.age, req.body.gender, req.body.consent, req.body.bio)
     console.log(req.route)
-    var errors = [];
-    var success = [];
+    let errors = []
+    let success = []
 
     if (req.body.firstName == "" || !/^[a-zA-Z]+$/.test(req.body.firstName)) {
         errors.push("Invalid First Name Entry")
@@ -221,20 +230,21 @@ router.post("/register", function (req, res) {
     } else {
         success.push("Bio Info Entered")
     }
-    res.render("register", { pagename: "Register", success: success, errors: errors });
+    res.render("register", { pagename: "Register", success: success, errors: errors, sess: sess })
 
 })
 
 const port = 8080
 
-app.use(express.static("public"));
-app.use("/", router);
-var server = app.listen(port, err => {
+app.use(express.static("public"))
+app.use("/", router)
+let server = app.listen(port, err => {
     if (err) {
         console.log('Server error', err)
         return
     }
     else {
-        console.log("listening on port " + port);
+        console.log("listening on port " + port)
     }
-});
+
+})
