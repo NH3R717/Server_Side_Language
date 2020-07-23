@@ -27,7 +27,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 let ejs = require("ejs");
 const { response } = require("express");
 const router = express.Router();
-// var app = express();
 
 // 
 app.set("view engine", "ejs");
@@ -47,17 +46,17 @@ router.get("/", function (req, res) {
     res.render('index', { pagename: "Home", sess: sess })
 });
 
-router.get("/about", function (req, res) {
-    sess = req.session;
-    res.render('about', { pagename: "About", sess: sess })
-});
-
 router.get("/profile", function (req, res) {
     sess = req.session;
-    if (typeof (sess) == "undefined" || sess.loggedin != true) {
+    console.log("redirected to profile")
+    if (typeof (sess) == "undefined" || sess.logged != "true") {
         var errors = ["Not an authenticated user"];
+        console.log("if /profile sess.logged (N)")
+        console.log(sess.logged)
         res.render('home', { pagename: "Home", errors: errors })
     } else {
+        console.log("else /profile sess.logged (Y)")
+        console.log(sess.logged)
         res.render('profile', { pagename: "Profile", sess: sess })
     }
 });
@@ -72,7 +71,19 @@ router.get("/logout", function (req, res) {
 });
 
 router.post("/login", function (req, res) {
-    console.log(sess)
+    console.log("login session")
+    console.log(req.email)
+    sess = req.session;
+    console.log("login email")
+    console.log(sess.email)
+    sess.email = req.body.email;
+    console.log("login password")
+    console.log(sess.password)
+    sess.password = req.body.password;
+    console.log("login login")
+    console.log(sess.logged)
+    sess.logged = ""
+
     var errors = [];
     if (req.body.email == "") {
         errors.push("blank email")
@@ -87,27 +98,56 @@ router.post("/login", function (req, res) {
         errors.push("password not valid")
     }
 
-    sess = req.session;
-    session.email = req.body.email;
-    session.password = req.body.password;
-
     // validation for login user – Mike@aol.com – password abc123 criteria
 
     if (req.body.email != "Mike@aol.com" && req.body.password != "abc123") {
         errors.push("Invalid Login")
+        console.log("if" + sess)
+        console.log("if" + sess.logged)
+        console.log("if" + req.session)
+        console.log("if" + sess.email)
+        console.log("if" + req.body.email)
+        console.log("if" + sess.password)
+        console.log("if" + req.body.password)
+        console.log("LOGIN CREDENTIALS NOT VALIDATED")
         res.render("index", { pagename: "Home", errors: errors })
     }
-    else if (req.body.email == "Mike@aol.com" && req.body.password == "abc123") {
-        sess.loggedin = true;
-        res.render("profile", { pagename: 'Profile', sess: sess });
+    if (req.body.email == "Mike@aol.com" && req.body.password == "abc123") {
+        sess.logged = "true";
+        console.log(sess.logged)
+        console.log("elseif" + req.session)
+        console.log("elseif" + sess.email)
+        console.log("elseif" + req.body.email)
+        console.log("elseif" + sess.password)
+        console.log("elseif" + req.body.password)
+        console.log("EVERYTHING VALIDATED RENDERS PROFILE SENDS TO /profile")
+        return res.redirect(303, "/profile");
+
     } else {
-        res.render("profile", { pagename: "Profile", errors: errors })
+        console.log("else" + sess)
+        console.log("else" + session.logged)
+        console.log("else" + req.session)
+        console.log("else" + sess.email)
+        console.log("else" + req.body.email)
+        console.log("else" + sess.password)
+        console.log("else" + req.body.password)
+        res.render("index", { pagename: "Home", errors: errors })
+        console.log("EVERYTHING VALIDATED GOES TO ELSE")
     }
     console.log(errors)
-    console.log("108" + req.session)
-})
+    console.log("login session")
+    console.log(req.email)
+    // sess = req.session;
+    console.log("login email")
+    console.log(sess.email)
+    // sess.email = req.body.email;
+    console.log("login password")
+    console.log(sess.password)
+    // sess.password = req.body.password;
+    console.log("login login")
+    console.log(sess.logged)
 
-// assignment 5 code addition – end
+})
 
 // 
 router.get("/", function (request, response) {
@@ -120,13 +160,6 @@ router.get("/", function (request, response) {
 router.get("/register", function (request, response) {
 
     response.render("register", { pagename: "Register" }); //views/register.ejs
-
-})
-
-// 
-router.get("/profile", function (request, response) {
-
-    response.render("profile", { pagename: "Profile" }); //views/about.ejs
 
 })
 
@@ -188,11 +221,11 @@ router.post("/register", function (req, res) {
     } else {
         success.push("Bio Info Entered")
     }
-
     res.render("register", { pagename: "Register", success: success, errors: errors });
+
 })
 
-let port = 8080
+const port = 8080
 
 app.use(express.static("public"));
 app.use("/", router);
