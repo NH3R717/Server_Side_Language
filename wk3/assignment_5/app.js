@@ -49,6 +49,8 @@ router.get("/", function (req, res) {
 
 })
 
+// fully functional only with 2 "router.get("/register",..." statements
+
 router.get("/register", function (request, response) {
 
     response.render("register", { pagename: "Register", sess: sess })
@@ -85,7 +87,7 @@ router.post("/login", function (req, res) {
     if (req.body.password == "") {
         errors.push("blank password")
     }
-    if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(req.body.email)) {
+    if (!/^(([^<>()\[\]\\.,:\s@"]+(\.[^<>()\[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(req.body.email)) {
         errors.push("email not valid")
     }
     if (!/^(?=.*\d).{5,}$/.test(req.body.password)) {
@@ -142,13 +144,6 @@ router.post("/login", function (req, res) {
     console.log(sess.logged)
 
 })
-
-// 
-// router.get("/", function (request, response) {
-
-//     response.render("index", { pagename: "Home" }) //views/index.ejs
-
-// })
 
 //
 router.get("/profile", function (req, res) {
